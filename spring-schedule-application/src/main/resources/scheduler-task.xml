@@ -1,0 +1,39 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:batch="http://www.springframework.org/schema/batch"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/batch
+		http://www.springframework.org/schema/batch/spring-batch-2.2.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/task
+    	http://www.springframework.org/schema/task/spring-task-3.2.xsd
+	">
+
+	<context:component-scan
+		base-package="com.etiqa.dsa" />
+
+
+	<bean id="SamplePrintLine" class="com.jefflks.schedule.SamplePrintLine" />
+	<bean id="SampleCommandLine" class="com.jefflks.schedule.SampleCommandLine" />
+
+	<task:scheduled-tasks>
+		<task:scheduled ref="SampleCommandLine" method="run"
+			cron="0 0,5,10,15,20,25,30,35,40,45,50,55 * * * *" />
+		<task:scheduled ref="SamplePrintLine" method="run"
+			cron="0 1,6,11,16,21,26,31,36,41,46,51,56 * * * *" />
+		<task:scheduled ref="SamplePrintLine" method="run"
+			cron="0 1 0 * * *" />
+		<task:scheduled ref="SampleCommandLine" method="run"
+			cron="0 2 0 * * *" />
+		<task:scheduled ref="SamplePrintLine" method="run"
+			cron="0 0 0 * * *" />
+		<task:scheduled ref="SampleCommandLine" method="run"
+			cron="*/5 * * * * *" />
+	</task:scheduled-tasks>
+
+
+</beans>
